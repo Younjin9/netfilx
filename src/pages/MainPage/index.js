@@ -1,10 +1,12 @@
 import React from "react";
 import Row from "../../components/Row";
 import requests from "../../api/requests";
+import Banner from "../../components/Banner";
 
 export default function MainPage() {
   return (
     <div>
+      <Banner />
       <Row
         title="NETFLIX ORIGINALS"
         id="NO"
