@@ -18,8 +18,8 @@ export default function Row({ isLargeRow, title, id, fetchUrl }) {
   const [movieSelected, setMovieSelected] = useState({});
 
   useEffect(() => {
-    fetchMovieData();
-  }, []);
+  fetchMovieData();
+}, [fetchMovieData]); 
 
   const fetchMovieData = async () => {
     const request = await axios.get(fetchUrl);
