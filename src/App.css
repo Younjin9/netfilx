@@ -1,6 +1,21 @@
-* {
-  margin: 0;
+import './App.css';
+import Nav from './components/Nav';
+import Banner from './components/Banner'; // Banner import 추가
+import React from 'react';
+import axios from './api/axios';
+import requests from './api/requests';
+import { useEffect, useState } from 'react';
+import './components/Banner.css';
+import './components/Nav.css';
+import './components/Banner.js';
+
+function App() {
+  return (
+    <div className="App">
+      <Nav />
+      <Banner />
+    </div>
+  );
 }
-.app {
-  background: #111;
-}
+
+export default App;
