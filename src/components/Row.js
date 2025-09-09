@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "../api/axios";
 import MovieModal from "./MovieModal";
 import "./Row.css";
@@ -17,15 +17,16 @@ export default function Row({ isLargeRow, title, id, fetchUrl }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [movieSelected, setMovieSelected] = useState({});
 
-  useEffect(() => {
-  fetchMovieData();
-}, [fetchMovieData]); 
-
-  const fetchMovieData = async () => {
+  // fetchMovieData를 useCallback으로 감싸기
+  const fetchMovieData = useCallback(async () => {
     const request = await axios.get(fetchUrl);
     console.log("request", request);
     setMovies(request.data.results);
-  };
+  }, [fetchUrl]); // fetchUrl이 변경될 때만 함수 재생성
+
+  useEffect(() => {
+    fetchMovieData();
+  }, [fetchMovieData]);
 
   const handleClick = (movie) => {
     setModalOpen(true);
@@ -61,9 +62,8 @@ export default function Row({ isLargeRow, title, id, fetchUrl }) {
       >
         <div id={id} className="row__posters">
           {movies.map((movie) => (
-            <SwiperSlide>
+            <SwiperSlide key={movie.id}> {/* key를 SwiperSlide로 이동 */}
               <img
-                key={movie.id}
                 style={{ padding: "25px 0" }}
                 className={`row__poster ${isLargeRow && "row__posterLarge"}`}
                 src={`https://image.tmdb.org/t/p/original/${
